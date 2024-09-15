@@ -160,13 +160,33 @@ const obtener_usuario_por_id_y_password = async function(req, res) {
 const actualizar_usuario = async function(req, res) {
     const id = req.params.id;
     const data = req.body;
+
     try {
-        // Actualizar el usuario
-        let usuarioActualizado = await User.findByIdAndUpdate(id, data, { new: true });
-        if (usuarioActualizado) {
-            res.status(200).send({ data: usuarioActualizado });
+        // Verifica si el campo password está presente en la actualización
+        if (data.password) {
+            // Si hay un nuevo password, encriptarlo antes de actualizar
+            bcrypt.hash(data.password, null, null, async function(err, hash) {
+                if (hash) {
+                    data.password = hash;
+                    // Actualizar el usuario con el password encriptado
+                    let usuarioActualizado = await User.findByIdAndUpdate(id, data, { new: true });
+                    if (usuarioActualizado) {
+                        res.status(200).send({ data: usuarioActualizado });
+                    } else {
+                        res.status(404).send({ message: 'Usuario no encontrado' });
+                    }
+                } else {
+                    res.status(500).send({ message: 'Error al encriptar la contraseña' });
+                }
+            });
         } else {
-            res.status(404).send({ message: 'Usuario no encontrado' });
+            // Si no hay password, simplemente actualiza el resto de los campos
+            let usuarioActualizado = await User.findByIdAndUpdate(id, data, { new: true });
+            if (usuarioActualizado) {
+                res.status(200).send({ data: usuarioActualizado });
+            } else {
+                res.status(404).send({ message: 'Usuario no encontrado' });
+            }
         }
     } catch (error) {
         res.status(500).send({ message: 'Error al actualizar el usuario', error });
