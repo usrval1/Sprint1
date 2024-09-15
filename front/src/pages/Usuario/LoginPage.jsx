@@ -4,9 +4,11 @@ import { useEffect, useState } from "react";
 import { useForm } from 'react-hook-form';
 import { TextField, Button, Typography, Paper, Box } from '@mui/material';
 import React from 'react';
+import {zodResolver} from "@hookform/resolvers/zod"; 
+import { loginSchema } from '../../Schemas/AUTH';
 
 export function LoginPage() {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, setError,formState:{errors} } = useForm({resolver:zodResolver(loginSchema)});
   const { signin, isAuthenticated, role } = useAuth();
   const navigate = useNavigate();
 
@@ -124,6 +126,7 @@ export function LoginPage() {
             margin="normal"
             {...register("email", { required: true })}
           />
+          {errors.email?.message && <p className="text-pink-600">{errors.email?.message}</p>}
           <TextField
             label="Password"
             type="password"
