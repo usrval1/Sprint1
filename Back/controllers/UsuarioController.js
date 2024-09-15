@@ -94,8 +94,111 @@ const registro_usuario = async function(req,res){
     }
 
 }
+//lista a todos los usuarios
+const listar_usuarios = async function(req, res) {
+    try {
+        // Obtener todos los usuarios
+        let usuarios = await User.find();
+        res.status(200).send({ data: usuarios });
+    } catch (error) {
+        res.status(500).send({ message: 'Error al listar los usuarios', error });
+    }
+};
+//elimina usuario segun id
+const eliminar_usuario = async function(req, res) {
+    const id = req.params.id;
+    try {
+        // Buscar y eliminar el usuario por su ID
+        let usuarioEliminado = await User.findByIdAndDelete(id);
+        if (usuarioEliminado) {
+            res.status(200).send({ message: 'Usuario eliminado correctamente', data: usuarioEliminado });
+        } else {
+            res.status(404).send({ message: 'Usuario no encontrado' });
+        }
+    } catch (error) {
+        res.status(500).send({ message: 'Error al eliminar el usuario', error });
+    }
+};
+//obtener usuario por ID nomas (para uso de admin)
+const obtener_usuario_por_id = async function(req, res) {
+    const id = req.params.id;
+    try {
+        // Buscar el usuario por ID
+        let usuario = await User.findById(id);
+        if (usuario) {
+            res.status(200).send({ data: usuario });
+        } else {
+            res.status(404).send({ message: 'Usuario no encontrado' });
+        }
+    } catch (error) {
+        res.status(500).send({ message: 'Error al obtener el usuario', error });
+    }
+};
+//mostrar usuario por id y contrasena, (uso para iniciar sesion para cuando se ponga la contra la base de datos)
+const obtener_usuario_por_id_y_password = async function(req, res) {
+    const { id, password } = req.body;
+    try {
+        // Buscar usuario por ID
+        let usuario = await User.findById(id);
+        if (usuario) {
+            // Comparar la contraseña
+            bcrypt.compare(password, usuario.password, function(err, check) {
+                if (check) {
+                    res.status(200).send({ data: usuario });
+                } else {
+                    res.status(400).send({ message: 'La contraseña no coincide' });
+                }
+            });
+        } else {
+            res.status(404).send({ message: 'Usuario no encontrado' });
+        }
+    } catch (error) {
+        res.status(500).send({ message: 'Error al obtener el usuario', error });
+    }
+};
+
+const actualizar_usuario = async function(req, res) {
+    const id = req.params.id;
+    const data = req.body;
+
+    try {
+        // Verifica si el campo password está presente en la actualización
+        if (data.password) {
+            // Si hay un nuevo password, encriptarlo antes de actualizar
+            bcrypt.hash(data.password, null, null, async function(err, hash) {
+                if (hash) {
+                    data.password = hash;
+                    // Actualizar el usuario con el password encriptado
+                    let usuarioActualizado = await User.findByIdAndUpdate(id, data, { new: true });
+                    if (usuarioActualizado) {
+                        res.status(200).send({ data: usuarioActualizado });
+                    } else {
+                        res.status(404).send({ message: 'Usuario no encontrado' });
+                    }
+                } else {
+                    res.status(500).send({ message: 'Error al encriptar la contraseña' });
+                }
+            });
+        } else {
+            // Si no hay password, simplemente actualiza el resto de los campos
+            let usuarioActualizado = await User.findByIdAndUpdate(id, data, { new: true });
+            if (usuarioActualizado) {
+                res.status(200).send({ data: usuarioActualizado });
+            } else {
+                res.status(404).send({ message: 'Usuario no encontrado' });
+            }
+        }
+    } catch (error) {
+        res.status(500).send({ message: 'Error al actualizar el usuario', error });
+    }
+};
 
 module.exports = {
     login_user,
-    registro_usuario
+    registro_usuario,
+    listar_usuarios,
+    eliminar_usuario,
+    obtener_usuario_por_id,
+    actualizar_usuario,
+    obtener_usuario_por_id_y_password
 }
