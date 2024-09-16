@@ -8,7 +8,8 @@ function App() {
     <UserProvider>
       <BrowserRouter>
       <Routes>
-        <Route path='/login_user' element={<LoginPage/>}/>        
+        <Route path='/login_user' element={<LoginPage/>}/>
+        <Route path='/registro_user' element={<RegistrarUsuario/>}/>        
       </Routes>
     </BrowserRouter>
     </UserProvider>

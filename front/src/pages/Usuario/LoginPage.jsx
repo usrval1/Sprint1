@@ -23,7 +23,7 @@ export function LoginPage() {
     if (isAuthenticated) {
       // Redirige según el rol del usuario
       if (role === 'Administrador') {
-        navigate("/abc");
+        navigate("/registro_user");
       } else if (role === 'Tecnico') {
         navigate("/tecnico");
       } else if (role === 'Vendedor') {
