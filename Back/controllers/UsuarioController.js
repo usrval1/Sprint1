@@ -30,6 +30,7 @@ const login_user = async function(req,res){
                     data: user,
                     message: 'Bienvenido, Administrador',
                     role: 'Administrador',
+                    name: `${user.nombre}  ${user.apellidos}`,
                     //genera token
                     token: jwt.createToken(user)
                 });}
@@ -39,6 +40,7 @@ const login_user = async function(req,res){
                         data: user,
                         message: 'Bienvenido, Vendedor',
                         role: 'Vendedor',
+                        name: `${user.nombre}  ${user.apellidos}`,
                         token: jwt.createToken(user)
                     });
                 } else if (role === 'Tecnico') {
@@ -47,6 +49,7 @@ const login_user = async function(req,res){
                         data: user,
                         message: 'Bienvenido, Técnico',
                         role: 'Tecnico',
+                        name: `${user.nombre}  ${user.apellidos}`,
                         token: jwt.createToken(user)
                     });
                 } else {

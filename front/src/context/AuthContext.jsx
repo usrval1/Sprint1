@@ -1,5 +1,5 @@
 import { createContext, useState, useContext} from "react";
-import { loginRequest } from "../api/auth";
+import { loginRequest, registrousuarioRequest} from "../api/auth";
 
 export const UserContext = createContext();
 export const useAuth = () => {
@@ -14,6 +14,7 @@ export const UserProvider = ({children}) => {
     const [user, setUser] = useState(null);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [role, setRole] = useState(null);  // Nuevo estado para almacenar el rol
+    const [name, setName] = useState(null);  // Nuevo estado para almacenar el rol
     
     //función para manejar el login
     const signin = async (user) => {
@@ -25,7 +26,9 @@ export const UserProvider = ({children}) => {
                     setUser(userData);
                     setIsAuthenticated(true);
                     setRole(userData.role);  // Guardar el rol del usuario
+                    setName(userData.name);
                     localStorage.setItem('token', userData.token); // Guarda el token
+                   return { user: userData, role: userData.role, name: userData.name};
                 } else {
                     setIsAuthenticated(false);
                 }
@@ -35,8 +38,29 @@ export const UserProvider = ({children}) => {
         }
       };
 
+    // Función manejar registro
+    const registerUser = async (user) => {
+        try {
+            const res = await registrousuarioRequest(user);
+            if (res.status === 200) {
+              const userData = res.data;
+                  if (userData) {
+                      setUser(userData);
+                      setIsAuthenticated(true);
+                    //  setRole(userData.role);  // Guardar el rol del usuario
+                    //  localStorage.setItem('token', userData.token); // Guarda el token // AVERIGUAR SI ES NECESARIO
+                  } else {
+                      setIsAuthenticated(false);
+                  }
+             }
+          } catch (error) {
+             console.log(error);
+             setErrors(error);
+          }
+    };
+
     return (
-        <UserContext.Provider value = {{user, isAuthenticated, role, signin}}>
+        <UserContext.Provider value = {{user, isAuthenticated, role, signin, registerUser, name}}>
             {children}
         </UserContext.Provider>
     )
