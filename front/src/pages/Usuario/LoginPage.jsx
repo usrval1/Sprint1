@@ -106,20 +106,16 @@ export function LoginPage() {
           zIndex: 2,
         }}
       >
-        <Typography
-          variant="h4"
-          component="h1"
-          align="center"
-          gutterBottom
+        {/* Imagen en lugar del texto */}
+        <Box
           sx={{
-            fontFamily: 'Montserrat, sans-serif',
-            fontWeight: 600,
-            color: '#E0E0E0',
-            textShadow: '1px 1px 3px rgba(0, 0, 0, 0.5)',
+            display: 'flex',
+            justifyContent: 'center',
+            marginBottom: 2,
           }}
         >
-          Masic S.A.C.
-        </Typography>
+          <img src="/images/logo1.png" alt="Logo" style={{ width: '100%', maxWidth: '180px' }} />
+        </Box>
         <form onSubmit={handleSubmit(onSubmit)}>
           <TextField
             label="Email"

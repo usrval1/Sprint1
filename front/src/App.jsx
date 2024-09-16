@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { UserProvider } from './context/AuthContext';
 
 import LoginPage from './pages/Usuario/LoginPage';
+import RegistrarUsuario from './pages/Administrador/RegistrarUsuario';
 
 function App() {
   return (
