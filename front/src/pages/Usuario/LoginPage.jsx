@@ -2,7 +2,7 @@ import { useAuth } from '../../context/AuthContext';
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useForm } from 'react-hook-form';
-import { TextField, Button, Typography, Paper, Box } from '@mui/material';
+import { TextField, Button, Paper, Box } from '@mui/material';
 import React from 'react';
 import {zodResolver} from "@hookform/resolvers/zod"; 
 import { loginSchema } from '../../Schemas/AUTH';
@@ -24,11 +24,11 @@ export function LoginPage() {
     if (isAuthenticated) {
       // Redirige según el rol del usuario
       if (role === 'Administrador') {
-        navigate("/abc");
+        navigate("/registro_user");
       } else if (role === 'Tecnico') {
         navigate("/tecnico");
       } else if (role === 'Vendedor') {
-        navigate("/vendedor");
+        navigate("/registro_user");
       }
     }
   }, [isAuthenticated, role, navigate]);
@@ -107,20 +107,16 @@ export function LoginPage() {
           zIndex: 2,
         }}
       >
-        <Typography
-          variant="h4"
-          component="h1"
-          align="center"
-          gutterBottom
+        {/* Imagen en lugar del texto */}
+        <Box
           sx={{
-            fontFamily: 'Montserrat, sans-serif',
-            fontWeight: 600,
-            color: '#E0E0E0',
-            textShadow: '1px 1px 3px rgba(0, 0, 0, 0.5)',
+            display: 'flex',
+            justifyContent: 'center',
+            marginBottom: 2,
           }}
         >
-          Masic S.A.C.
-        </Typography>
+          <img src="/images/logo1.png" alt="Logo" style={{ width: '100%', maxWidth: '180px' }} />
+        </Box>
         <form onSubmit={handleSubmit(onSubmit)}>
           <TextField
             label="Email"
