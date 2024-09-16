@@ -8,13 +8,12 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import { loginSchema } from '../../Schemas/AUTH';
 
 export function LoginPage() {
-  const { signin, isAuthenticated, role, user } = useAuth();
+  const { signin, isAuthenticated, role } = useAuth();
   const { register, handleSubmit, setError,formState:{errors} } = useForm({resolver:zodResolver(loginSchema)});
   const navigate = useNavigate();
 
   // Estado para manejar el índice de las imágenes de fondo
   const [backgroundIndex, setBackgroundIndex] = useState(0);
-  const emailRegistrados=user?.email ? [user.email] : [];
   const onSubmit = (data) => 
 
     
