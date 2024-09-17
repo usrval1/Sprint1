@@ -100,17 +100,17 @@ function MenuSideBar({ open }) {
           }}
         >
           {[ 
-            { icon: <PersonIcon />, text: 'Gestionar usuario' },
-            { icon: <GroupIcon />, text: 'Gestionar roles' },
+            { icon: <PersonIcon />, text: 'Gestionar usuarios' },
+            { icon: <ProjectIcon />, text: 'Vizualizar solicitudes de servicio' },
             { icon: <BudgetIcon />, text: 'Gestionar presupuestos' },
+            { icon: <ProjectIcon />, text: 'Gestionar proyectos' },
             { icon: <InventoryIcon />, text: 'Control de inventario' },
             { icon: <ProjectIcon />, text: 'Gestionar programación de proyectos' },
+            { icon: <CalendarIcon />, text: 'Visualizar cronograma' },
             { icon: <ClientIcon />, text: 'Gestionar clientes' },
             { icon: <PersonnelIcon />, text: 'Gestionar personal' },
             { icon: <RateIcon />, text: 'Gestionar tarifas' },
-            { icon: <ProjectIcon />, text: 'Gestionar proyectos' },
             { icon: <StateIcon />, text: 'Gestionar estado de cobro' },
-            { icon: <CalendarIcon />, text: 'Visualizar cronograma' },
           ].map(({ icon, text }, index) => (
             <ListItem button="true" key={index} sx={{ padding: '8px 8px', height: '56px' }}>
               <ListItemIcon
