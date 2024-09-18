@@ -3,10 +3,12 @@ import { AppBar, Toolbar, IconButton, Menu, MenuItem, Tooltip, Typography, Box }
 import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 function NavBar({ onDrawerToggle, drawerOpen }) {
   const [anchorEl, setAnchorEl] = useState(null);
-  const { user, role, name} = useAuth();
+  const { user, role, name, logout} = useAuth();
+  const navigate = useNavigate();  // Hook para redireccionar
 
   const handleMenuClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -15,6 +17,11 @@ function NavBar({ onDrawerToggle, drawerOpen }) {
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login_user'); // Redirige a la página de inicio de sesión después de cerrar sesión
+    };
 
   return (
     <AppBar
@@ -71,8 +78,8 @@ function NavBar({ onDrawerToggle, drawerOpen }) {
           },
         }}
       >
-        <MenuItem onClick={handleMenuClose}>Perfil</MenuItem>
-        <MenuItem onClick={handleMenuClose}>Cerrar sesión</MenuItem>
+        <MenuItem onClick={handleLogout}>Perfil</MenuItem>
+        <MenuItem onClick={handleLogout}>Cerrar sesión</MenuItem>
       </Menu>
     </AppBar>
   );

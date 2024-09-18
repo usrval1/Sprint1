@@ -1,4 +1,4 @@
-import { createContext, useState, useContext} from "react";
+import { createContext, useState, useContext, useEffect} from "react";
 import { loginRequest } from "../api/auth";
 
 export const UserContext = createContext();
@@ -27,6 +27,7 @@ export const UserProvider = ({children}) => {
                 setRole(userData.role);  // Guardar el rol del usuario
                 setName(userData.name);
                 localStorage.setItem('token', userData.token); // Guarda el token
+                localStorage.setItem('user', JSON.stringify(userData));  // Guardar datos del usuario
                return { user: userData, role: userData.role, name: userData.name};
             } else {
                 setIsAuthenticated(false);
@@ -57,9 +58,37 @@ export const UserProvider = ({children}) => {
              setErrors(error);
           }
     };
+    
+    // Función para verificar si el usuario ya está autenticado al cargar la aplicación
+    const checkAuth = () => {
+        const token = localStorage.getItem('token');
+        const storedUser = localStorage.getItem('user');
+        if (token && storedUser) {
+            const userData = JSON.parse(storedUser);
+            setUser(userData);
+            setIsAuthenticated(true);
+            setRole(userData.role);  // Cargar el rol desde localStorage
+            setName(userData.name);
+        }
+    };
+
+    // Función para cerrar sesión
+    const logout = () => {
+        localStorage.removeItem('token');  // Eliminar el token de localStorage
+        localStorage.removeItem('user');   // Eliminar los datos del usuario de localStorage
+        setUser(null);
+        setIsAuthenticated(false);
+        setRole(null);
+        setName(null);
+    };
+
+    // Usar useEffect para chequear la autenticación al cargar la app
+    useEffect(() => {
+        checkAuth();
+    }, []);  // Se ejecuta una sola vez cuando el componente se monta
 
     return (
-        <UserContext.Provider value = {{user, isAuthenticated, role, name, registerUser, signin}}>
+        <UserContext.Provider value = {{user, isAuthenticated, role, name, registerUser, signin, checkAuth, logout}}>
             {children}
         </UserContext.Provider>
     )
