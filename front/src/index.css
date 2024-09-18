@@ -11,6 +11,7 @@ body {
   margin: 0; /* Elimina el margen predeterminado del body */
   padding: 0; /* Elimina el padding predeterminado del body */
   overflow: hidden; /* Evita que el contenido desborde */
+  background-color: #f0f0f0;
 }
 
 html, body {
