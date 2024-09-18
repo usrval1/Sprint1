@@ -16,10 +16,10 @@ function App() {
     <UserProvider>
       <BrowserRouter>
       <Routes>
-        <Route path='/login_user' element={<LoginPage/>}/>
-        <Route path='/registro_user' element={<RegistrarUsuario/>}/>
-        <Route path='/gestionar_usuarios' element={<GestionarUsuarios/>}/>         
+        <Route path='/login_user' element={<LoginPage/>}/>       
         <Route element={<PrivateRoute />}>
+        <Route path='/registro_user' element={<RegistrarUsuario/>}/>
+        <Route path='/gestionar_usuarios' element={<GestionarUsuarios/>}/>  
         </Route>     
       </Routes>
     </BrowserRouter>
