@@ -7,6 +7,7 @@ import React, { useEffect } from 'react';
 import LoginPage from './pages/Usuario/LoginPage';
 import RegistrarUsuario from './pages/Administrador/RegistrarUsuario';
 import GestionarUsuarios from './pages/Administrador/GestionarUsuario';
+import LoggedUsuario from './pages/Usuario/LoggedUsuario';
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
       <Routes>
         <Route path='/login_user' element={<LoginPage/>}/>       
         <Route element={<PrivateRoute />}>
+        <Route path='/logged_user' element={<LoggedUsuario/>}/>
         <Route path='/registro_user' element={<RegistrarUsuario/>}/>
         <Route path='/gestionar_usuarios' element={<GestionarUsuarios/>}/>  
         </Route>     
