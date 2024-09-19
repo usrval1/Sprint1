@@ -118,7 +118,7 @@ function MenuSideBar({ open }) {
         >
           {menuItems.map(({ icon, text, path }, index) => (
             <ListItem
-              button
+              button="true"
               key={index}
               sx={{ 
                 padding: '8px 8px', 
