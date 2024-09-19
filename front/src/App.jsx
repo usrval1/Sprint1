@@ -7,7 +7,7 @@ import React, { useEffect } from 'react';
 import LoginPage from './pages/Usuario/LoginPage';
 import RegistrarUsuario from './pages/Administrador/RegistrarUsuario';
 import GestionarUsuarios from './pages/Administrador/GestionarUsuario';
-
+import EditarUsuario from './pages/Usuario/editarUsuario';
 
 function App() {
   //const { checkAuth } = useAuth();
@@ -19,7 +19,8 @@ function App() {
         <Route path='/login_user' element={<LoginPage/>}/>       
         <Route element={<PrivateRoute />}>
         <Route path='/registro_user' element={<RegistrarUsuario/>}/>
-        <Route path='/gestionar_usuarios' element={<GestionarUsuarios/>}/>  
+        <Route path='/gestionar_usuarios' element={<GestionarUsuarios/>}/>
+        <Route path='/editar_perfil' element={<EditarUsuario />} />   
         </Route>     
       </Routes>
     </BrowserRouter>
