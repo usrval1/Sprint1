@@ -84,8 +84,12 @@ const GestionarUsuarios = () => {
                     <td className="px-6 py-4 text-gray-900 dark:text-white">{usuario.email}</td>
                     <td className="px-6 py-4 text-gray-900 dark:text-white">{usuario.rol}</td>
                     <td className="px-6 py-4 text-gray-900 dark:text-white">
-                      <a href={`/ver_usuario/${usuario._id}`} className="font-medium text-blue-600 dark:text-blue-500 hover:underline mr-4">Ver</a>
-                      <a href={`/editar_usuario/${usuario._id}`} className="font-medium text-green-600 dark:text-green-500 hover:underline mr-4">Editar</a>
+                    <Link to={`/ver_usuario/${usuario._id}`} className="font-medium text-blue-600 dark:text-blue-500 hover:underline mr-4">
+                      Ver
+                    </Link>
+                    <Link to={`/editar_usuario/${usuario._id}`} className="font-medium text-green-600 dark:text-green-500 hover:underline mr-4">
+                      Editar
+                    </Link>
                       <button
                         onClick={() => handleDelete(usuario._id)}
                         className="font-medium text-red-600 dark:text-red-500 hover:underline"
