@@ -25,9 +25,9 @@ export function LoginPage() {
       if (role === 'Administrador') {
         navigate("/registro_user");
       } else if (role === 'Tecnico') {
-        navigate("/tecnico");
+        navigate("/registro_user");
       } else if (role === 'Vendedor') {
-        navigate("/vendedor");
+        navigate("/registro_user");
       }
     }
   }, [isAuthenticated, role, navigate]);
