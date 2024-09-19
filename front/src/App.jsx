@@ -5,7 +5,7 @@ import { useAuth } from './context/AuthContext';
 import React, { useEffect } from 'react';
 
 import LoginPage from './pages/Usuario/LoginPage';
-import LoggedUsuario from './pages/Administrador/LoggedUsuario';
+import LoggedUsuario from './pages/Usuario/LoggedUsuario';
 import GestionarUsuarios from './pages/Administrador/GestionarUsuario';
 
 
