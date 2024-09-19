@@ -3,7 +3,7 @@ import { Box } from '@mui/material';
 import MenuSideBar from '../../components/MenuSideBar';
 import NavBar from '../../components/NavBar';
 
-export function RegistrarUsuario() {
+export function LoggedUsuario() {
   const [drawerOpen, setDrawerOpen] = useState(true);
 
   const handleDrawerToggle = () => {
@@ -16,11 +16,11 @@ export function RegistrarUsuario() {
       <Box component="main" sx={{ flexGrow: 1, p: 3, ml: drawerOpen ? 300 : 70 }}>
         <NavBar onDrawerToggle={handleDrawerToggle} drawerOpen={drawerOpen} />
         <Box sx={{ mt: 8 }}>
-          <div>Contenido de Registrar Usuario</div>
+          <div>Contenido de Usuario logeado</div>
         </Box>
       </Box>
     </Box>
   );
 }
 
-export default RegistrarUsuario;
+export default LoggedUsuario;

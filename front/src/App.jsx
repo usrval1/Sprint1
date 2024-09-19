@@ -5,7 +5,7 @@ import { useAuth } from './context/AuthContext';
 import React, { useEffect } from 'react';
 
 import LoginPage from './pages/Usuario/LoginPage';
-import RegistrarUsuario from './pages/Administrador/RegistrarUsuario';
+import LoggedUsuario from './pages/Administrador/LoggedUsuario';
 import GestionarUsuarios from './pages/Administrador/GestionarUsuario';
 
 
@@ -18,7 +18,7 @@ function App() {
       <Routes>
         <Route path='/login_user' element={<LoginPage/>}/>       
         <Route element={<PrivateRoute />}>
-        <Route path='/registro_user' element={<RegistrarUsuario/>}/>
+        <Route path='/logged_user' element={<LoggedUsuario/>}/>
         <Route path='/gestionar_usuarios' element={<GestionarUsuarios/>}/>  
         </Route>     
       </Routes>
